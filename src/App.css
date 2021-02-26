@@ -7,6 +7,37 @@
   pointer-events: none;
 }
 
+.Grid {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.Row {
+  display: flex;
+}
+
+.Cell {
+  height: 15px;
+  width: 15px;
+  border-style: solid;
+  border-width: thin;
+  border-color: #282c34;
+
+}
+
+.cell-0 {
+  background-color: #a3a3a3
+}
+
+.cell-1 {
+  background-color: #5daaff
+}
+
+.cell-2 {
+  background-color: #2cb48a
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
