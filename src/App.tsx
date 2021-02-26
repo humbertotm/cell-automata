@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Grid from './Grid';
 
 import * as seed from './sample_data.json';
 
@@ -16,32 +17,48 @@ interface NeigbhorDetails {
   deadCount: number
 }
 
-type GridProps = {
-  // [wololo] Think about generalizing this (generics)
-  automataState: number[][]
-}
-
-type RowProps = {
-  // [wololo] Think about generalizing this (generics)
-  row: number
-  rowState: Array<number>
-}
-
-type CellProps = {
-  // [wololo] Think about generalizing this (generics)
-  row: number
-  col: number
-  cellState: number
-}
-
 type ButtonProps = {
   onClick: () => void
   paused: boolean
 }
 
-const possibleStates = ['dead', 'sad', 'happy'];
+export const possibleStates: Array<string> = ['dead', 'sad', 'happy'];
 
 const fetchSeedData: () => number[][] = () => {
+  // let data: number[][] = [];
+  // function fetchData() {
+  //   fetch('https://coding-project.imtlab.io/seed')
+  //   .then(response => {
+  //     if(response.ok) {
+  //       return response.json();
+  //     } else {
+  //       Promise.reject("Non ok status received")
+  //     }
+  //   })
+  //   .then(data => {
+  //     const state = data.state
+  //     if (!state) return Promise.reject(new Error("No state data in response"));
+      
+  //     data = state;
+  //   })
+  //   .catch(error => {
+  //     console.log("error in promise")
+  //     return seed.data.state
+  //   }).then(defaultData => {
+  //     console.log(defaultData)
+  //     if(defaultData) {
+  //       data = defaultData;
+  //     }
+  //   })
+  // }
+
+  // async function resolveData() {
+  //   const data = await fetchData();
+  //   return data
+  // }
+
+  // data = resolveData()
+  // console.log(data);
   return seed.data.state;
 }
 
@@ -342,23 +359,6 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
   return newState;
 }
 
-const Cell: React.FunctionComponent<CellProps> = ({cellState, row, col}) => 
-  <div className={`Cell cell-${cellState} pos-${row}-${col}`}></div>
-
-const Row: React.FunctionComponent<RowProps> = ({rowState, row}) => 
-  <div className="Row">
-    {rowState.map((cellState, col) => (
-      <Cell key={`cell-${row.toString()}-${col.toString()}`} cellState={cellState} row={row} col={col} />
-    ))}
-  </div>
-
-const Grid: React.FunctionComponent<GridProps> = ({automataState}) => 
-  <div className="Grid">
-    {automataState.map((rowState, row) => (
-      <Row key={row.toString()} rowState={rowState} row={row}/>
-    ))}
-  </div>
-
 const Button: React.FunctionComponent<ButtonProps> = ({onClick, paused}) =>
   <div>
     <button onClick={onClick}>{paused ? 'Start' : 'Pause'}</button>    
@@ -391,19 +391,7 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header className="App-display">
           <Grid automataState={this.state.automataState}/>
           <Button onClick={this.toggleAnimation} paused={this.state.paused} />
         </header>
