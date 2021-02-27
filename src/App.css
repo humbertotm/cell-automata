@@ -1,4 +1,4 @@
-.App {
+.app {
   text-align: center;
 }
 
@@ -20,19 +20,19 @@
 
 }
 
-.cell-dead {
+.dead {
   background-color: #a3a3a3
 }
 
-.cell-sad {
+.sad {
   background-color: #5daaff
 }
 
-.cell-happy {
+.happy {
   background-color: #2cb48a
 }
 
-.App-display {
+.app-display {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;

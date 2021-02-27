@@ -18,10 +18,14 @@ export const possibleStates: Array<string> = ['dead', 'sad', 'happy'];
 
 class App extends React.Component<{}, AppState> {
   state: AppState = { 
-    automataState: fetchSeedData(),
+    automataState: [],
     paused: true,
     interval: 0
   };
+
+  componentDidMount() {
+    this.setState({automataState: fetchSeedData()});
+  }
 
   tick: () => void = () => {
     const newState: number[][] = computeEvolution(this.state.automataState);
@@ -40,8 +44,8 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-display">
+      <div className="app">
+        <header className="app-display">
           <Grid automataState={this.state.automataState}/>
           <Button onClick={this.toggleAnimation} paused={this.state.paused} />
         </header>

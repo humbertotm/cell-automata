@@ -17,7 +17,7 @@ type CellProps = {
 }
 
 const Cell: React.FunctionComponent<CellProps> = ({cellState, row, col}) => 
-  <div className={`cell cell-${possibleStates[cellState]} pos-${row}-${col}`}></div>
+  <div className={`cell ${possibleStates[cellState]} pos-${row}-${col}`}></div>
 
 const Row: React.FunctionComponent<RowProps> = ({rowState, row}) => 
   <div className="row">

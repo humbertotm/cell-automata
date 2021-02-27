@@ -17,10 +17,30 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
     return false;
   }
 
+  const updateNeighborDetails: (details: NeigbhorDetails, cellState: number) => NeigbhorDetails = (details, cellState) => {
+    let newNeighborDetails: NeigbhorDetails = details;
+
+    switch(cellState) {
+      case 0:
+        newNeighborDetails.deadCount++;
+        break;
+      case 1:
+        newNeighborDetails.sadCount++;
+        break;
+      case 2:
+        newNeighborDetails.happyCount++;
+        break;
+    }
+
+    return newNeighborDetails;
+  }
+
   const computeNeighborDetails: (row: number, col: number) => NeigbhorDetails = (row, col) => {
-    let deadCount: number = 0;
-    let sadCount: number = 0;
-    let happyCount: number = 0;
+    let neighborDetails: NeigbhorDetails = {
+      deadCount: 0,
+      sadCount: 0,
+      happyCount: 0
+    }
 
     if(!isEdgeOrCorner(row, col)) {
       for (let i = row - 1; i <= row + 1; i++) {
@@ -29,21 +49,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Top left corner
@@ -54,21 +64,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Bottom left corner
@@ -79,21 +79,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Left edge
@@ -104,21 +94,12 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
-
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      
+      return neighborDetails
+      
     }
 
     // Bottom right corner
@@ -129,21 +110,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Bottom edge
@@ -154,21 +125,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Top right corner
@@ -179,21 +140,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Right edge
@@ -204,21 +155,11 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
     // Top edge
@@ -229,24 +170,14 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
             continue
           }
 
-          switch(prevState[i][j]) {
-            case 0:
-              deadCount++;
-              break;
-            case 1:
-              sadCount++;
-              break;
-            case 2:
-              happyCount++;
-              break;
-          }
+          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
         }
       }
 
-      return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount};
+      return neighborDetails
     }
 
-    return {deadCount: deadCount, sadCount: sadCount, happyCount: happyCount}
+    return neighborDetails
   } 
 
   // One cell => dead
