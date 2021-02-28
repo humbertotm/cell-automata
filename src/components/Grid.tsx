@@ -3,7 +3,7 @@ import { StateData } from '../types';
 import { possibleStates } from '../constants';
 
 type GridProps = {
-  automataState: StateData
+  automatonState: StateData
 }
 
 type RowProps = {
@@ -27,11 +27,11 @@ const Row: React.FunctionComponent<RowProps> = ({rowState, row}) =>
     ))}
   </div>
 
-const Grid: React.FunctionComponent<GridProps> = ({automataState}) =>
+const Grid: React.FunctionComponent<GridProps> = ({automatonState}) =>
   <div className="grid">
-    {automataState.map((rowState, row) => (
+    {automatonState.map((rowState, row) => (
       <Row key={row.toString()} rowState={rowState} row={row} />
     ))}
   </div>;
 
-  export default Grid;
+export default Grid;

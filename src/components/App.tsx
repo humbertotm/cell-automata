@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import '../styles/App.css';
 import Grid from './Grid';
 import Button from './Button';
@@ -7,31 +7,34 @@ import fetchSeedData from '../api/api'
 import * as seed from '../sample_data.json';
 
 import {StateData, AppState} from '../types';
-import { possibleStates } from '../constants';
+
+const initialState: AppState = { 
+  automatonState: [],
+  paused: true,
+  interval: 0
+}
+
+// type AppState = Readonly<typeof initialState>
 
 class App extends React.Component<{}, AppState> {
-  state: AppState = { 
-    automataState: [],
-    paused: true,
-    interval: 0
-  };
+  readonly state: AppState = initialState
 
   componentDidMount() {
     fetchSeedData()
-      .then(data => this.setState({automataState: data}))
+      .then(data => this.setState({automatonState: data}))
       .catch(e => {
         console.error(e)
-        this.setState({automataState: seed.data.state})
+        // Default
+        this.setState({automatonState: seed.data.state})
       })
-    
   }
 
   tick: () => void = () => {
-    const newState: StateData = computeEvolution(this.state.automataState);
-    this.setState({automataState: newState});
+    const newState: StateData = computeEvolution(this.state.automatonState);
+    this.setState({automatonState: newState});
   }
   
-  toggleAnimation: () => void = () => {
+  toggleAnimation: (e: MouseEvent<HTMLElement>) => void = () => {
     if(this.state.paused) {
       this.setState({interval: window.setInterval(this.tick, 1000)});
     } else {
@@ -45,13 +48,17 @@ class App extends React.Component<{}, AppState> {
     return (
       <div className="app">
         <header className="app-display">
-          <Grid automataState={this.state.automataState}/>
-          <Button onClick={this.toggleAnimation} paused={this.state.paused} />
+          <Grid automatonState={this.state.automatonState}/>
+          <Button 
+            onClick={this.toggleAnimation} 
+            active={!this.state.paused}
+            activeLabel='Pause'
+            nonActiveLabel='Start'
+          />
         </header>
       </div>
     );
   }
 }
-
 
 export default App;

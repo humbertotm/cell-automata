@@ -13,7 +13,6 @@ async function fetchSeedData(): Promise<StateData> {
     stateData?: {
       data: APIResponseData
     }
-    // Copied
     errors?: Array<{message: string}>
   }
 

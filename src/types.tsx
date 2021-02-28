@@ -1,7 +1,7 @@
 export type StateData = number[][]
 
 export interface AppState {
-  automataState: StateData
+  automatonState: StateData
   paused: boolean
   interval: number
 }
