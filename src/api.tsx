@@ -1,41 +1,39 @@
-import * as seed from './sample_data.json';
+import { StateData } from './App';
 
-const fetchSeedData: () => number[][] = () => {
-  // let data: number[][] = [];
-  // function fetchData() {
-  //   fetch('https://coding-project.imtlab.io/seed')
-  //   .then(response => {
-  //     if(response.ok) {
-  //       return response.json();
-  //     } else {
-  //       Promise.reject("Non ok status received")
-  //     }
-  //   })
-  //   .then(data => {
-  //     const state = data.state
-  //     if (!state) return Promise.reject(new Error("No state data in response"));
-      
-  //     data = state;
-  //   })
-  //   .catch(error => {
-  //     console.log("error in promise")
-  //     return seed.data.state
-  //   }).then(defaultData => {
-  //     console.log(defaultData)
-  //     if(defaultData) {
-  //       data = defaultData;
-  //     }
-  //   })
-  // }
+// Sourced from https://kentcdodds.com/blog/using-fetch-with-type-script
+async function fetchSeedData(): Promise<StateData> {
+  type APIResponseData = {
+    id: string
+    m: number
+    n: number
+    state: StateData
+  }
 
-  // async function resolveData() {
-  //   const data = await fetchData();
-  //   return data
-  // }
+  type JSONResponse = {
+    stateData?: {
+      data: APIResponseData
+    }
+    // Copied
+    errors?: Array<{message: string}>
+  }
 
-  // data = resolveData()
-  // console.log(data);
-  return seed.data.state;
+  const response = await fetch('https://coding-project.imtlab.io/seed')
+
+  const {stateData, errors}: JSONResponse = await response.json()
+
+  if(response.ok) {
+    const initialState = stateData?.data?.state
+
+    if(initialState) { 
+      return initialState
+    } else {
+      return Promise.reject(new Error('No initial state data found for cell automaton'))
+    }
+  } else {
+    console.log('error')
+    const errMessage = new Error(errors?.map(err => err.message).join('\n') ?? 'Unknown error')
+    return Promise.reject(errMessage)
+  }
 }
 
 export default fetchSeedData

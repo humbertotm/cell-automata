@@ -4,9 +4,12 @@ import Grid from './Grid';
 import Button from './Button';
 import computeEvolution from './utils'
 import fetchSeedData from './api'
+import * as seed from './sample_data.json';
+
+export type StateData = number[][]
 
 interface AppState {
-  automataState: number[][]
+  automataState: StateData
   paused: boolean
   interval: number
 }
@@ -21,11 +24,17 @@ class App extends React.Component<{}, AppState> {
   };
 
   componentDidMount() {
-    this.setState({automataState: fetchSeedData()});
+    fetchSeedData()
+      .then(data => this.setState({automataState: data}))
+      .catch(e => {
+        console.error(e)
+        this.setState({automataState: seed.data.state})
+      })
+    
   }
 
   tick: () => void = () => {
-    const newState: number[][] = computeEvolution(this.state.automataState);
+    const newState: StateData = computeEvolution(this.state.automataState);
     this.setState({automataState: newState});
   }
   

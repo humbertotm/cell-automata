@@ -1,8 +1,8 @@
 import React from 'react';
-import { possibleStates } from './App';
+import { possibleStates, StateData } from './App';
 
 type GridProps = {
-  automataState: number[][]
+  automataState: StateData
 }
 
 type RowProps = {
