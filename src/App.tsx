@@ -1,12 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Grid from './Grid';
 import Button from './Button';
 import computeEvolution from './utils'
 import fetchSeedData from './api'
-
-import * as seed from './sample_data.json';
 
 interface AppState {
   automataState: number[][]

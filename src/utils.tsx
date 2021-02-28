@@ -9,14 +9,6 @@ interface NeigbhorDetails {
 const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
   let newState: number[][] = [];
 
-  const isEdgeOrCorner: (row: number, col: number) => boolean = (row, col) => {
-    if (row === 0 || col === 0) return true;
-
-    if (row === prevState.length - 1 || col === prevState[0].length - 1) return true;
-
-    return false;
-  }
-
   const updateNeighborDetails: (details: NeigbhorDetails, cellState: number) => NeigbhorDetails = (details, cellState) => {
     let newNeighborDetails: NeigbhorDetails = details;
 
@@ -42,151 +34,29 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
       happyCount: 0
     }
 
-    if(!isEdgeOrCorner(row, col)) {
-      for (let i = row - 1; i <= row + 1; i++) {
-        for(let j = col - 1; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
+    for (let i = row - 1; i <= row + 1; i++) {
+      for(let j = col -1; j <= col + 1; j++) {
+        // Invalid location in grid
+        if (i < 0 || j < 0 || i >= prevState.length || j >= prevState[0].length) continue;
 
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
+        // Current location
+        if (i === row && j === col) continue;
+
+        neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
       }
-
-      return neighborDetails
-    }
-
-    // Top left corner
-    if(row === 0 && col === 0) {
-      for(let i = row; i <= row + 1; i++) {
-        for(let j: number = col; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
-    }
-
-    // Bottom left corner
-    if(row === prevState.length - 1 && col === 0) {
-      for(let i = row - 1; i <= row; i++) {
-        for(let j: number = col; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
-    }
-
-    // Left edge
-    if(col === 0) {
-      for(let i = row - 1; i <= row + 1; i++) {
-        for(let j: number = col; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-      
-      return neighborDetails
-      
-    }
-
-    // Bottom right corner
-    if(row === prevState.length - 1 && col === prevState[0].length - 1) {
-      for(let i = row - 1; i <= row; i++) {
-        for(let j = col; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
-    }
-
-    // Bottom edge
-    if(row === prevState.length - 1) {
-      for(let i = row - 1; i <= row; i++) {
-        for(let j = col - 1; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
-    }
-
-    // Top right corner
-    if(row === 0 && col === prevState[0].length - 1) {
-      for(let i = row; i <= row + 1; i++) {
-        for(let j = col - 1; j <= col; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
-    }
-
-    // Right edge
-    if(col === prevState[0].length - 1) {
-      for(let i = row - 1; i <= row + 1; i++) {
-        for(let j = col - 1; j <= col; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
-    }
-
-    // Top edge
-    if(row === 0) {
-      for(let i = row; i <= row + 1; i++) {
-        for(let j = col - 1; j <= col + 1; j++) {
-          if (i === row && j === col) {
-            continue
-          }
-
-          neighborDetails = updateNeighborDetails(neighborDetails, prevState[i][j]);
-        }
-      }
-
-      return neighborDetails
     }
 
     return neighborDetails
   } 
 
-  // One cell => dead
+  // One cell => dead forever afterwards
   if (prevState.length === 1 && prevState[0].length === 1 ) {
     newState[0][0] = 0
     return newState
   }
 
-  // [wololo] What about empty data?
+  // Empty data
+  if (prevState.length === 0) return newState;
 
   for(let i = 0; i < prevState.length; i++) {
     newState[i] = [];
