@@ -1,5 +1,6 @@
 import React from 'react';
-import { possibleStates, StateData } from './App';
+import { StateData } from '../types';
+import { possibleStates } from '../constants';
 
 type GridProps = {
   automataState: StateData

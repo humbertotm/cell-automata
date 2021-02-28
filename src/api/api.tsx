@@ -1,4 +1,4 @@
-import { StateData } from './App';
+import { StateData } from '../types';
 
 // Sourced from https://kentcdodds.com/blog/using-fetch-with-type-script
 async function fetchSeedData(): Promise<StateData> {

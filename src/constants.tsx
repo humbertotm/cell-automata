@@ -1,0 +1,1 @@
+export const possibleStates: Array<string> = ['dead', 'sad', 'happy'];

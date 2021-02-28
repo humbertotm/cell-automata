@@ -1,4 +1,5 @@
-import { possibleStates, StateData } from './App';
+import { possibleStates } from './constants';
+import { StateData } from './types'; 
 
 interface NeigbhorDetails {
   happyCount: number

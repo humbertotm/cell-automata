@@ -1,20 +1,13 @@
 import React from 'react';
-import './App.css';
+import '../styles/App.css';
 import Grid from './Grid';
 import Button from './Button';
-import computeEvolution from './utils'
-import fetchSeedData from './api'
-import * as seed from './sample_data.json';
+import computeEvolution from '../evolution'
+import fetchSeedData from '../api/api'
+import * as seed from '../sample_data.json';
 
-export type StateData = number[][]
-
-interface AppState {
-  automataState: StateData
-  paused: boolean
-  interval: number
-}
-
-export const possibleStates: Array<string> = ['dead', 'sad', 'happy'];
+import {StateData, AppState} from '../types';
+import { possibleStates } from '../constants';
 
 class App extends React.Component<{}, AppState> {
   state: AppState = { 
