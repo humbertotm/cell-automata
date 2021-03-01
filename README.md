@@ -10,9 +10,13 @@ In order to run this project, you'll need:
 2. `npm` or `yarn`
 3. Clone the project from https://github.com/humbertotm/cell-automata
 
+## Installing dependencies
+To install project dependencies, execute:
+### `npm install` or `yarn install`
+
 ## Running the project
 
-In the project directory, you can run the following commands:
+In the project directory, you can run the following command:
 
 ### `npm start` or `yarn start`
 
