@@ -1,5 +1,4 @@
 import { possibleStates } from './constants';
-import { StateData } from './types'; 
 
 interface NeigbhorDetails {
   happyCount: number
@@ -7,8 +6,8 @@ interface NeigbhorDetails {
   deadCount: number
 }
 
-const computeEvolution: (prevState: StateData) => StateData = (prevState) => {
-  let newState: StateData = [];
+const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
+  let newState: number[][] = [];
 
   // Auxiliary function to update the NeighborDetails counts for a particular cell
   const updateNeighborDetails: (details: NeigbhorDetails, cellState: number) => NeigbhorDetails = (details, cellState) => {
@@ -29,6 +28,7 @@ const computeEvolution: (prevState: StateData) => StateData = (prevState) => {
     return newNeighborDetails;
   }
 
+  // Gathers type counts for neighboring cells
   const computeNeighborDetails: (row: number, col: number) => NeigbhorDetails = (row, col) => {
     let neighborDetails: NeigbhorDetails = {
       deadCount: 0,
@@ -53,7 +53,7 @@ const computeEvolution: (prevState: StateData) => StateData = (prevState) => {
 
   // One cell => dead forever afterwards
   if (prevState.length === 1 && prevState[0].length === 1 ) {
-    newState[0][0] = 0
+    newState[0] = [0]
     return newState
   }
 
@@ -67,11 +67,12 @@ const computeEvolution: (prevState: StateData) => StateData = (prevState) => {
     for(let j = 0; j < prevState[0].length; j++) {
       const neighborDetails = computeNeighborDetails(i, j);
       const cellState = possibleStates[prevState[i][j]];
+      let sadAndHappyCount: number = 0
 
       switch(cellState) {
         case 'happy':
         case 'sad':
-          const sadAndHappyCount = neighborDetails.happyCount + neighborDetails.sadCount;
+          sadAndHappyCount = neighborDetails.happyCount + neighborDetails.sadCount;
           if(sadAndHappyCount === 2 || sadAndHappyCount === 3) {
             newState[i][j] = prevState[i][j];
             break;

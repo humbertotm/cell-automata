@@ -6,7 +6,11 @@ import computeEvolution from '../evolution'
 import fetchSeedData from '../api/api'
 import * as seed from '../sample_data.json';
 
-import {StateData, AppState} from '../types';
+export interface AppState {
+  automatonState: number[][]
+  paused: boolean
+  interval: number
+}
 
 const initialState: AppState = { 
   automatonState: [],
@@ -14,7 +18,24 @@ const initialState: AppState = {
   interval: 0
 }
 
-// type AppState = Readonly<typeof initialState>
+const nextEvolution = (prevState: AppState) => ({automatonState: computeEvolution(prevState.automatonState)})
+
+const toggleAnimation = (prevState: AppState, intervalFn: () => void) => {
+  let interval: number = 0;
+
+  // This interval clearing should not affect a 0 interval
+  // Function is idempotent
+  window.clearInterval(prevState.interval)
+
+  if(prevState.paused) {
+    interval = window.setInterval(intervalFn, 1000)
+  }
+
+  return {
+    interval: interval,
+    paused: !prevState.paused
+  }
+}
 
 class App extends React.Component<{}, AppState> {
   readonly state: AppState = initialState
@@ -29,19 +50,12 @@ class App extends React.Component<{}, AppState> {
       })
   }
 
-  tick: () => void = () => {
-    const newState: StateData = computeEvolution(this.state.automatonState);
-    this.setState({automatonState: newState});
+  private tick: () => void = () => {
+    this.setState(nextEvolution)
   }
   
-  toggleAnimation: (e: MouseEvent<HTMLElement>) => void = () => {
-    if(this.state.paused) {
-      this.setState({interval: window.setInterval(this.tick, 1000)});
-    } else {
-      window.clearInterval(this.state.interval);
-    }
-
-    this.setState({paused: !this.state.paused});
+  private toggleAnimation: (e: MouseEvent<HTMLElement>) => void = () => {
+    this.setState(toggleAnimation(this.state, this.tick));
   }
 
   render() {

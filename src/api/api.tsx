@@ -1,12 +1,10 @@
-import { StateData } from '../types';
-
 // Sourced from https://kentcdodds.com/blog/using-fetch-with-type-script
-async function fetchSeedData(): Promise<StateData> {
+async function fetchSeedData(): Promise<number[][]> {
   type APIResponseData = {
     id: string
     m: number
     n: number
-    state: StateData
+    state: number[][]
   }
 
   type JSONResponse = {
