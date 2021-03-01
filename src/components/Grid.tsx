@@ -1,5 +1,6 @@
-import React from 'react';
-import { possibleStates } from '../utils/constants';
+import React from 'react'
+import { possibleStates } from '../utils/constants'
+import '../styles/Grid.css'
 
 type GridProps = {
   automatonState: number[][]
@@ -40,6 +41,6 @@ const Grid: React.FunctionComponent<GridProps> = ({automatonState}) =>
         row={row} 
       />
     ))}
-  </div>;
+  </div>
 
-export default Grid;
+export default Grid

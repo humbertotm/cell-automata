@@ -1,3 +1,5 @@
+// Promise handling pattern with Typescript based on this blog post:
+// https://kentcdodds.com/blog/using-fetch-with-type-script
 async function fetchSeedData(): Promise<number[][]> {
   type APIResponseData = {
     id: string

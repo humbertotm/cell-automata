@@ -1,10 +1,10 @@
-import React, { MouseEvent } from 'react';
-import '../styles/App.css';
-import Grid from './Grid';
-import Button from './Button';
+import React, { MouseEvent } from 'react'
+import '../styles/App.css'
+import Grid from './Grid'
+import Button from './Button'
 import computeEvolution from '../utils/evolution'
 import fetchSeedData from '../api/api'
-import * as seed from '../api/sample_data.json';
+import * as seed from '../api/sample_data.json'
 
 type AppState = {
   automatonState: number[][]
@@ -23,7 +23,7 @@ const nextEvolution = (prevState: AppState) => ({automatonState: computeEvolutio
 
 // Sets/Clears interval given current animation state
 const toggleAnimation = (prevState: AppState, intervalFn: () => void) => {
-  let interval: number = 0;
+  let interval: number = 0
 
   // This interval clearing should not affect a 0 interval
   // Function should be idempotent
@@ -57,7 +57,7 @@ class App extends React.Component<{}, AppState> {
   }
   
   private toggleAnimation: (e: MouseEvent<HTMLElement>) => void = () => {
-    this.setState(toggleAnimation(this.state, this.tick));
+    this.setState(toggleAnimation(this.state, this.tick))
   }
 
   render() {
@@ -73,8 +73,8 @@ class App extends React.Component<{}, AppState> {
           />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

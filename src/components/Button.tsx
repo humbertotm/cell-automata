@@ -1,5 +1,5 @@
-import React, { MouseEvent } from 'react';
-import '../styles/Button.css';
+import React, { MouseEvent } from 'react'
+import '../styles/Button.css'
 
 type ButtonProps = {
   onClick: (e: MouseEvent<HTMLElement>) => void

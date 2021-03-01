@@ -1,5 +1,5 @@
-import { assert } from 'console';
-import computeEvolution from '../utils/evolution';
+import { assert } from 'console'
+import computeEvolution from '../utils/evolution'
 
 test('empty next state for empty input', () => {
   const initialState: number[][] = []
