@@ -8,8 +8,9 @@ It consists of a simple cell automaton that evolves in discrete steps. The evolu
 In order to run this project, you'll need:
 1. `Node` >= `v12`
 2. `npm` or `yarn`
+3. Clone the project from https://github.com/humbertotm/cell-automata
 
-## Available Scripts
+## Running the project
 
 In the project directory, you can run the following commands:
 
@@ -17,6 +18,10 @@ In the project directory, you can run the following commands:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Running tests
+
+In the project directory, execute the following command:
 
 ### `npm test` or `yarn test`
 
