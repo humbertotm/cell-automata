@@ -7,21 +7,26 @@ import fetchSeedData from '../api/api'
 import * as seed from '../api/sample_data.json'
 
 type AppState = {
+  /** Defines the current state of the automaton */
   automatonState: number[][]
+  /** Determines if evolution animation is currently paused */
   paused: boolean
+  /** Stores the interval handling the periodic evolution of the automaton */ 
   interval: number
 }
 
-const initialState: AppState = { 
+const initialState: AppState = {
   automatonState: [],
   paused: true,
   interval: 0
 }
 
-// Computes the next stage of evolution given a current state
+/** Pure functions that compute next state for specific actions */ 
+
+/** Computes the next stage of evolution given a current state */ 
 const nextEvolution = (prevState: AppState) => ({automatonState: computeEvolution(prevState.automatonState)})
 
-// Sets/Clears interval given current animation state
+/** Sets/Clears interval given current animation state */ 
 const toggleAnimation = (prevState: AppState, intervalFn: () => void) => {
   let interval: number = 0
 
@@ -39,6 +44,10 @@ const toggleAnimation = (prevState: AppState, intervalFn: () => void) => {
   }
 }
 
+/**
+ * Entrypoint component for cell automaton.
+ * Renders grid representing automatong and button to start/pause evolution animation.
+ */
 class App extends React.Component<{}, AppState> {
   readonly state: AppState = initialState
 

@@ -6,6 +6,10 @@ interface NeigbhorDetails {
   deadCount: number
 }
 
+/**
+ * Computes automaton's next evolution state given current state
+ * @param prevState 
+ */
 const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
   let newState: number[][] = []
 
@@ -38,7 +42,7 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
 
     for (let i = row - 1; i <= row + 1; i++) {
       for(let j = col -1; j <= col + 1; j++) {
-        // Invalid location in grid
+        // Invalid cell
         if (i < 0 || j < 0 || i >= prevState.length || j >= prevState[0].length) continue
 
         // Current location
