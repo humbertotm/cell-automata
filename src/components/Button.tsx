@@ -1,4 +1,5 @@
 import React, { MouseEvent } from 'react';
+import '../styles/Button.css';
 
 type ButtonProps = {
   onClick: (e: MouseEvent<HTMLElement>) => void
@@ -9,7 +10,7 @@ type ButtonProps = {
 
 const Button: React.FunctionComponent<ButtonProps> = 
   ({onClick, active, activeLabel, nonActiveLabel}) =>
-  <div className="on-off-button">
+  <div className={`onoff-button button-${active ? 'active' : 'inactive'}`}>
     <button onClick={onClick}>{active ? activeLabel : nonActiveLabel}</button>    
   </div> 
 
