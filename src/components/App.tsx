@@ -4,7 +4,7 @@ import Grid from './Grid';
 import Button from './Button';
 import computeEvolution from '../evolution'
 import fetchSeedData from '../api/api'
-import * as seed from '../sample_data.json';
+import * as seed from '../api/sample_data.json';
 
 export interface AppState {
   automatonState: number[][]
@@ -24,7 +24,7 @@ const toggleAnimation = (prevState: AppState, intervalFn: () => void) => {
   let interval: number = 0;
 
   // This interval clearing should not affect a 0 interval
-  // Function is idempotent
+  // Function should be idempotent
   window.clearInterval(prevState.interval)
 
   if(prevState.paused) {
