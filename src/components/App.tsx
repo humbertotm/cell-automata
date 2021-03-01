@@ -2,11 +2,11 @@ import React, { MouseEvent } from 'react';
 import '../styles/App.css';
 import Grid from './Grid';
 import Button from './Button';
-import computeEvolution from '../evolution'
+import computeEvolution from '../utils/evolution'
 import fetchSeedData from '../api/api'
 import * as seed from '../api/sample_data.json';
 
-export interface AppState {
+type AppState = {
   automatonState: number[][]
   paused: boolean
   interval: number
@@ -18,8 +18,10 @@ const initialState: AppState = {
   interval: 0
 }
 
+// Computes the next stage of evolution given a current state
 const nextEvolution = (prevState: AppState) => ({automatonState: computeEvolution(prevState.automatonState)})
 
+// Sets/Clears interval given current animation state
 const toggleAnimation = (prevState: AppState, intervalFn: () => void) => {
   let interval: number = 0;
 
@@ -61,7 +63,7 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <div className="app">
-        <header className="app-display">
+        <div className="app-display">
           <Grid automatonState={this.state.automatonState}/>
           <Button 
             onClick={this.toggleAnimation} 
@@ -69,7 +71,7 @@ class App extends React.Component<{}, AppState> {
             activeLabel='Pause'
             nonActiveLabel='Start'
           />
-        </header>
+        </div>
       </div>
     );
   }

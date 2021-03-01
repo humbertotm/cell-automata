@@ -1,4 +1,3 @@
-// Sourced from https://kentcdodds.com/blog/using-fetch-with-type-script
 async function fetchSeedData(): Promise<number[][]> {
   type APIResponseData = {
     id: string
@@ -27,7 +26,6 @@ async function fetchSeedData(): Promise<number[][]> {
       return Promise.reject(new Error('No initial state data found for cell automaton'))
     }
   } else {
-    console.log('error')
     const errMessage = new Error(errors?.map(err => err.message).join('\n') ?? 'Unknown error')
     return Promise.reject(errMessage)
   }

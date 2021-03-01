@@ -28,7 +28,7 @@ const computeEvolution: (prevState: number[][]) => number[][] = (prevState) => {
     return newNeighborDetails;
   }
 
-  // Gathers type counts for neighboring cells
+  // Gathers counts per cell type for a particular cell's neighbors
   const computeNeighborDetails: (row: number, col: number) => NeigbhorDetails = (row, col) => {
     let neighborDetails: NeigbhorDetails = {
       deadCount: 0,
