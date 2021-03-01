@@ -23,7 +23,7 @@
     "eject": "react-scripts eject"
   },
   "bin": {
-    "start-automaton": "npm start"
+    "start-automaton": "index.sh"
   },
   "eslintConfig": {
     "extends": [
